@@ -1,5 +1,6 @@
 TOPMODULE=alu.v
 
+
 SUB_ALU=alu_top.v cla4.v alu4.v
 SUB_ALU8=alu_top.v cla8.v alu8.v
 SUB_ALU32=alu_top.v cla8.v alu8.v cla4.v alu32.v
@@ -10,8 +11,8 @@ MYTEST32=mytest32
 
 VPATH = verilog
 
-all: 
-	iverilog -o alu.vvp testbench.v alu.v ${SUB_ALU32}
+all: testbench.v ${TOPMODULE} ${SUB_ALU32} 
+	iverilog -o alu.vvp $+
 ${MYTEST}.vvp: ${MYTEST}.v ${SUB_ALU}
 	iverilog -o $@ $^
 ${MYTEST8}.vvp: ${MYTEST8}.v ${SUB_ALU8}

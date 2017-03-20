@@ -43,7 +43,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a2(.src1(src1[1]),
               .src2(src2[1]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[0]),
@@ -55,7 +55,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a3(.src1(src1[2]),
               .src2(src2[2]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[1]),
@@ -67,7 +67,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a4(.src1(src1[3]),
               .src2(src2[3]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[2]),
@@ -79,7 +79,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a5(.src1(src1[4]),
               .src2(src2[4]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[3]),
@@ -91,7 +91,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a6(.src1(src1[5]),
               .src2(src2[5]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[4]),
@@ -103,7 +103,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a7(.src1(src1[6]),
               .src2(src2[6]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[5]),
@@ -115,7 +115,7 @@ module alu8 (/*AUTOARG*/
 
    alu_top a8(.src1(src1[7]),
               .src2(src2[7]),
-              .less(less),
+              .less(1'b0),
               .A_invert(A_invert),
               .B_invert(B_invert),
               .cin(c[6]),

@@ -49,31 +49,41 @@ module alu(
    reg             cout;
    reg             overflow;
 
-   //wire            neg;
+   
    wire   [32-1:0] res;
    wire            c;
+   wire 	   slt;
+
+   wire 	   sign_check, ad, lt;
+	   
    
-alu32 a1(.src1(src1),
-         .src2(src2),
-         .less(1'b1),
-         .A_invert(ALU_control[3]),
-         .B_invert(ALU_control[2]),
-         .cin(ALU_control[2]),
-         .operation(ALU_control[1:0]),
-         .result(res),
-         .cout(c)
-         );
+   alu32 a1(.src1(src1),
+            .src2(src2),
+            .less(slt),
+            .A_invert(ALU_control[3]),
+            .B_invert(ALU_control[2]),
+            .cin(ALU_control[2]),
+            .operation(ALU_control[1:0]),
+            .result(res),
+            .cout(c),
+	    .slt(lt)
+            );
    
+   assign sign_check = (src1[31] ^ src2[31]);
+   assign slt = sign_check ? src1[31] & ~src2[31] : lt;
+   assign ad = ALU_control[1] & ~ALU_control[0];
+   
+ 
    always @ ( /*AUTOSENSE*/*  ) begin
       if (rst_n) begin
          result <= res;
 	 zero <= ~|res;         
 	 cout <= c & ALU_control[1] & ~ALU_control[0];
 	 if ( src1[31] ^ src2[31]) begin 
-	    overflow <= (res[31] ^ src1[31]) & ALU_control[2] & ALU_control[1] & ~ALU_control[0];
+	    overflow <= (res[31] ^ src1[31]) & ALU_control[2] & ad;
 	 end
 	 else begin
-	    overflow <= (res[31] ^ src1[31]) & ALU_control[1] & ~ALU_control[0];
+	    overflow <= (res[31] ^ src1[31]) & ad;
 	 end
 	 
          
