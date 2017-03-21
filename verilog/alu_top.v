@@ -53,8 +53,8 @@ module alu_top(
    wire 	 in1,in2;
    output 	 eq;	 
    
-   assign in1 = A_invert ? ~src1 : src1;
-   assign in2 = B_invert ? ~src2 : src2;
+   assign in1 = A_invert ^ src1;
+   assign in2 = B_invert ^ src2;
 
    assign eq = in1 ^ in2;
    
