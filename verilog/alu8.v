@@ -9,7 +9,8 @@ module alu8 (/*AUTOARG*/
              result, //8 bit
              //cout //1 bit
              P, //1 bit
-             G  //1 bit
+             G,  //1 bit
+	     eq, //8 bit
 ) ;
    
    input [8-1:0] src1, src2;
@@ -20,7 +21,9 @@ module alu8 (/*AUTOARG*/
    output [8-1:0] result;
    wire   [8-1:0] c;
    wire   [8-1:0] p, g;
-
+   output [8-1:0] eq;
+   
+   
    cla8 cl(.G(g),
            .P(p),
            .cin(cin),
@@ -38,7 +41,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[0]),
               .p(p[0]),
-              .g(g[0])
+              .g(g[0]),
+	      .eq(eq[0])
               );
 
    alu_top a2(.src1(src1[1]),
@@ -50,7 +54,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[1]),
               .p(p[1]),
-              .g(g[1])
+              .g(g[1]),
+	      .eq(eq[1])
               );
 
    alu_top a3(.src1(src1[2]),
@@ -62,7 +67,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[2]),
               .p(p[2]),
-              .g(g[2])
+              .g(g[2]),
+	      .eq(eq[2])	      
               );
 
    alu_top a4(.src1(src1[3]),
@@ -74,7 +80,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[3]),
               .p(p[3]),
-              .g(g[3])
+              .g(g[3]),
+	      .eq(eq[3])
               );
 
    alu_top a5(.src1(src1[4]),
@@ -86,7 +93,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[4]),
               .p(p[4]),
-              .g(g[4])
+              .g(g[4]),
+	      .eq(eq[4])
               );
 
    alu_top a6(.src1(src1[5]),
@@ -98,7 +106,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[5]),
               .p(p[5]),
-              .g(g[5])
+              .g(g[5]),
+	      .eq(eq[5])
               );
 
    alu_top a7(.src1(src1[6]),
@@ -110,7 +119,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[6]),
               .p(p[6]),
-              .g(g[6])
+              .g(g[6]),
+	      .eq(eq[6])	      
               );
 
    alu_top a8(.src1(src1[7]),
@@ -122,7 +132,8 @@ module alu8 (/*AUTOARG*/
               .operation(operation),
               .result(result[7]),
               .p(p[7]),
-              .g(g[7])
+              .g(g[7]),
+	      .eq(eq[7])	      
               );
 
    

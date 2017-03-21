@@ -9,10 +9,10 @@ MYTEST=mytest
 MYTEST8=mytest8
 MYTEST32=mytest32
 
-VPATH = verilog
+VPATH = verilog:test
 
-all: testbench.v ${TOPMODULE} ${SUB_ALU32} 
-	iverilog -o alu.vvp $+
+alu.vvp: testbench.v ${TOPMODULE} ${SUB_ALU32} 
+	iverilog -o $@ $+
 ${MYTEST}.vvp: ${MYTEST}.v ${SUB_ALU}
 	iverilog -o $@ $^
 ${MYTEST8}.vvp: ${MYTEST8}.v ${SUB_ALU8}
@@ -25,7 +25,9 @@ sim8: ${MYTEST8}.vvp
 	vvp $<
 sim32: ${MYTEST32}.vvp
 	vvp $<
+test: alu.vvp
+	cd bonus_data && vvp ../$< 
 .PHONY: clean
 clean:
 	rm -f *.vvp
-	rm -f *~
+	find . -name *~ -delete

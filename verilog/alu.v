@@ -25,7 +25,7 @@ module alu(
            src1,          // 32 bits source 1          (input)
            src2,          // 32 bits source 2          (input)
            ALU_control,   // 4 bits ALU control input  (input)
-		 //bonus_control, // 3 bits bonus control input(input) 
+	   bonus_control, // 3 bits bonus control input(input) 
            result,        // 32 bits result            (output)
            zero,          // 1 bit when the output is 0, zero must be set (output)
            cout,          // 1 bit carry out           (output)
@@ -37,7 +37,7 @@ module alu(
    input [32-1:0]  src1;
    input [32-1:0]  src2;
    input [4-1:0]   ALU_control;
-   //input   [3-1:0] bonus_control; 
+   input   [3-1:0] bonus_control; 
 
    output [32-1:0] result;
    output          zero;
@@ -53,25 +53,30 @@ module alu(
    wire   [32-1:0] res;
    wire            c;
    wire 	   slt;
-
-   wire 	   sign_check, ad, lt;
-	   
+   wire [32-1:0]   eq; 	   
+   wire 	   sign_check, ad;
+   wire 	   eql;
+   wire 	   set;
+   
    
    alu32 a1(.src1(src1),
             .src2(src2),
-            .less(slt),
+            .less(set),
             .A_invert(ALU_control[3]),
             .B_invert(ALU_control[2]),
             .cin(ALU_control[2]),
             .operation(ALU_control[1:0]),
             .result(res),
             .cout(c),
-	    .slt(lt)
+	    .eq(eq)
             );
    
-   assign sign_check = (src1[31] ^ src2[31]);
-   assign slt = sign_check ? src1[31] & ~src2[31] : lt;
+   assign sign_check = eq[31] ; //(src1[31] ^ src2[31]);
+   assign lt = sign_check ? res[31] : src1[31] & ~src2[31];
    assign ad = ALU_control[1] & ~ALU_control[0];
+   assign eql = &eq;
+
+   assign set = (~bonus_control[2] & (bonus_control[0] ^ lt)) | bonus_control[1] & eql;
    
  
    always @ ( /*AUTOSENSE*/*  ) begin
@@ -79,7 +84,7 @@ module alu(
          result <= res;
 	 zero <= ~|res;         
 	 cout <= c & ALU_control[1] & ~ALU_control[0];
-	 if ( src1[31] ^ src2[31]) begin 
+	 if ( sign_check ) begin 
 	    overflow <= (res[31] ^ src1[31]) & ALU_control[2] & ad;
 	 end
 	 else begin

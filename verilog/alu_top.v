@@ -32,6 +32,7 @@ module alu_top(
                //cout,       //1 bit carry out(output)
                p,          //1 bit p
                g,          //1 bit g
+	       eq,         //1 bit eq
                );
 
    input         src1;
@@ -50,15 +51,18 @@ module alu_top(
    reg 		 result;
    wire 	 AND, OR, ADD;
    wire 	 in1,in2;
+   output 	 eq;	 
    
    assign in1 = A_invert ? ~src1 : src1;
    assign in2 = B_invert ? ~src2 : src2;
+
+   assign eq = in1 ^ in2;
    
    assign AND = in1 & in2; //G
    assign OR  = in1 | in2; //P
-   assign ADD = in1 ^ in2 ^ cin;
+   assign ADD = eq ^ cin;
    
-   //assign cout = AND | (OR & cin);
+
    assign p = OR;
    assign g = AND;
    
