@@ -85,10 +85,9 @@ module alu(
       if (rst_n) begin
          result <= res;
 	 zero <= ~|res;         
-	 cout <= c & ALU_control[1] & ~ALU_control[0];
+	 cout <= c & ad;
 	 overflow <= v;         
       end 
-      
    end
    
    
