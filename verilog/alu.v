@@ -73,7 +73,7 @@ module alu(
 	    .V(v)
             );
    
-   assign sign_check = eq[31] ; //(src1[31] ^ src2[31]);
+   assign sign_check = eq[31] ; //(src1[31] ^ ~src2[31]);
    assign lt = sign_check ? res[31] : src1[31] & ~src2[31];
    assign ad = ALU_control[1] & ~ALU_control[0];
    assign eql = &eq;
@@ -86,17 +86,7 @@ module alu(
          result <= res;
 	 zero <= ~|res;         
 	 cout <= c & ALU_control[1] & ~ALU_control[0];
-	 overflow <= v;
-	 
-/*
-	 if ( sign_check ) begin 
-	    overflow <= (res[31] ^ src1[31]) & ALU_control[2] & ad;
-	 end
-	 else begin
-	    overflow <= (res[31] ^ src1[31]) & ad;
-	 end
-*/	 
-         
+	 overflow <= v;         
       end 
       
    end

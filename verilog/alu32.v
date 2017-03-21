@@ -83,7 +83,7 @@ module alu32 (/*AUTOARG*/
            );
    
    assign cout = c[3];
-   assign V = c[3] ^ v[7];
+   assign V = c[3] ^ v[6];
    
    
 endmodule // alu32
