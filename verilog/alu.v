@@ -57,6 +57,7 @@ module alu(
    wire 	   sign_check, ad;
    wire 	   eql;
    wire 	   set;
+   wire 	   v;
    
    
    alu32 a1(.src1(src1),
@@ -68,7 +69,8 @@ module alu(
             .operation(ALU_control[1:0]),
             .result(res),
             .cout(c),
-	    .eq(eq)
+	    .eq(eq),
+	    .V(v)
             );
    
    assign sign_check = eq[31] ; //(src1[31] ^ src2[31]);
@@ -84,13 +86,16 @@ module alu(
          result <= res;
 	 zero <= ~|res;         
 	 cout <= c & ALU_control[1] & ~ALU_control[0];
+	 overflow <= v;
+	 
+/*
 	 if ( sign_check ) begin 
 	    overflow <= (res[31] ^ src1[31]) & ALU_control[2] & ad;
 	 end
 	 else begin
 	    overflow <= (res[31] ^ src1[31]) & ad;
 	 end
-	 
+*/	 
          
       end 
       

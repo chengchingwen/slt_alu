@@ -7,7 +7,7 @@ module alu8 (/*AUTOARG*/
              cin, //1 bit
              operation, //2 bit
              result, //8 bit
-             //cout //1 bit
+             cout, //8 bit
              P, //1 bit
              G,  //1 bit
 	     eq, //8 bit
@@ -16,12 +16,13 @@ module alu8 (/*AUTOARG*/
    input [8-1:0] src1, src2;
    input         cin, less, A_invert, B_invert;
    input [2-1:0] operation;
-   //output        cout;
+
    output  P, G;
    output [8-1:0] result;
    wire   [8-1:0] c;
    wire   [8-1:0] p, g;
    output [8-1:0] eq;
+   output [8-1:0] cout;
    
    
    cla8 cl(.G(g),
@@ -137,7 +138,7 @@ module alu8 (/*AUTOARG*/
               );
 
    
-   //assign cout = c[7];
+   assign cout = c;
 
    
 endmodule // alu8

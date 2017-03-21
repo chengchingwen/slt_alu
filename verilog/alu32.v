@@ -8,8 +8,8 @@ module alu32 (/*AUTOARG*/
               operation, //2 bit
               result, //32 bit
               cout, //1 bit
-//	      slt  //1 bit
-	      eq //32 bit
+	      eq, //32 bit
+	      V //1 bit overflow
 ) ;
    input [32-1:0] src1, src2;
    input 	  cin, less, A_invert, B_invert;
@@ -19,6 +19,9 @@ module alu32 (/*AUTOARG*/
    wire [4-1:0]    c;
    wire [4-1:0]    p, g;
    output [32-1:0] eq;
+   output 	   V;
+   wire [8-1:0]    v;
+   
    
    //top level carry look ahead
    cla4 cl(.G(g),
@@ -75,10 +78,12 @@ module alu32 (/*AUTOARG*/
            .result(result[32-1:24]),
            .P(p[3]),
            .G(g[3]),
-	   .eq(eq[32-1:24])
+	   .eq(eq[32-1:24]),
+	   .cout(v)
            );
    
    assign cout = c[3];
-   //assign slt = result[31];
+   assign V = c[3] ^ v[7];
+   
    
 endmodule // alu32
