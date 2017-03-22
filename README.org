@@ -1,0 +1,231 @@
+#+TITLE: slt ALU
+#+AUTHOR: 鄭景文
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
+#+CREATOR: Emacs 25.1.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+SELECT_TAGS: export
+* slt ALU
+** 實作內容說明
+[[./img/basic_command.png]]
+
+首先實作 AND 與 OR 的功能, 在 input 前透過一個是否 invert 的 bit 就可以同時做出 NAND 與 NOR
+
+同理, 利用這種做法我們只要實作加法則減法也做完了
+*** adder  
+**** carry look ahead
+
+原本透過 ripple carry adder 來實做加法時, cout 必須等待前一位的加法進位 (cin) 完成才能夠做運算, 於是會造成延遲
+
+所以改用 carry look ahead 的方式, 意思是說 每一個 C_in 其實都可以透過前面的 A_(i-1), B_(i-1) ... A_0, B_0 直接算出來,
+
+
+於是 cout 就可以不用透過等待前面的 C_in 來算, 不過就需要額外的 carry look ahead circuit 來計算每一個 bit 的 carry out
+
+#+BEGIN_SRC dot :file ./img/4cla.png :export results
+digraph G {
+ graph [rankdir = BT]
+ node [ fontname = Verdana, fontsize = 12 ]
+ node [ style = filled ] 
+ node [ fillcolor = "#EEEEEE" ] 
+ node [ color = "#EEEEEE" ]
+ edge [ color = "# 31CEF0" ]
+
+ a [label="4 bit carry look ahead circuit"]
+ c [label="cout"]
+ s1 [label="<3> A₃|<2> A₂|<1> A₁ |<0> A₀ ", shape=record]
+ s2 [label="<3> B₃|<2> B₂|<1> B₁ |<0> B₀ ", shape=record]
+ c0 [label="cin"]  
+ { rank=same;nodesep=1;c;a}
+ { rank=same;ranksep=.05;s1}
+ { rank=same;ranksep=.05;s2}
+
+ c -> a [dir=back];
+ s1:0 -> a [label="A₀"];
+ s2:0 -> a [label="B₀"];
+ s1:1 -> a [label="A₁"];
+ s2:1 -> a [label="B₁"];
+ s1:2 -> a [label="A₂"];
+ s2:2 -> a [label="B₂"];
+ s1:3 -> a [label="A₃"];
+ s2:3 -> a [label="B₃"];
+ c0 -> a;
+}
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/4cla.png]]
+
+**** 32 bit carry look ahead adder
+
+在這邊我們實作了一個 8 bit 的 carry look ahead circuit (cla) , 並將他串起來做成一個 32 bit adder, 
+但是這樣的話在彼此的 carry 傳遞過程中又會有 ripple 造成延遲
+
+#+BEGIN_SRC dot :file ./img/32badder.png :export results
+digraph G {
+  graph [rankdir = BT]
+  node [ fontname = Verdana, fontsize = 12 ]
+  node [ style = filled ] 
+  node [ fillcolor = "#EEEEEE" ] 
+  node [ color = "#EEEEEE" ]
+  edge [ color = "# 31CEF0" ]
+ subgraph sluster_3{
+  a3 [label="8 bit cla"]
+  c3 [label="Cout"] 
+  s7 [label="A [31:24]", shape=record]
+  s8 [label="B [31:24]", shape=record]
+  { rank=max;nodesep=1;c3;a3}
+  { rank=min;ranksep=.05;s7;s7}
+  c3 -> a3 [label="c32", dir=back, color=red, fontcolor=red];
+  s7 -> a3 [label="A"];
+  s8 -> a3 [label="B"];
+ }
+ subgraph sluster_2{
+  a2 [label="8 bit cla"]
+  s5 [label="A [23:16]", shape=record]
+  s6 [label="B [23:16]", shape=record]
+  { rank=max;nodesep=1;a2}
+  { rank=min;ranksep=.05;s5;s6}
+  s5 -> a2 [label="A"];
+  s6 -> a2 [label="B"];
+ }
+ subgraph sluster_1{
+  a1 [label="8 bit cla"]
+  s3 [label="A [15:8]", shape=record]
+  s4 [label="B [15:8]", shape=record]
+  { rank=max;nodesep=1;a1}
+  { rank=min;ranksep=.05;s3;s4}
+  s3 -> a1 [label="A"];
+  s4 -> a1 [label="B"];
+ }
+ subgraph sluster_0{
+  a0 [label="8 bit cla"]
+  s1 [label="A [7:0]", shape=record]
+  s2 [label="B [7:0] ", shape=record]
+  cin [label="cin"]  
+  { rank=max;nodesep=1;a0;cin}
+  { rank=min;ranksep=.05;s1;s2}
+  s1 -> a0 [label="A"];
+  s2 -> a0 [label="B"];
+  cin -> a0 [constraint = false];
+ }
+ a0 -> a1 [label="c8", constraint = false, color=red, fontcolor=red];
+ a1 -> a2 [label="c16",constraint = false, color=red, fontcolor=red];
+ a2 -> a3 [label="c24",constraint = false, color=red, fontcolor=red];
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/32badder.png]]
+**** multiple level carry look ahead adder
+
+於是我們在這之上再建了一層 cla, 事先將每一個 8 bit cla 需要得 carry_in 算出來, 減少延遲, 也就是 multiple level cla 
+
+#+BEGIN_SRC dot :file ./img/multicladder.png :export results
+digraph G {
+  ordering=in;
+  //splines="line";
+  graph [rankdir = BT]
+  node [ fontname = Verdana, fontsize = 12 ]
+  node [ style = filled ] 
+  node [ fillcolor = "#EEEEEE" ] 
+  node [ color = "#EEEEEE" ]
+  edge [ color = "# 31CEF0" ]
+
+ subgraph sluster_3{
+  a3 [label="8 bit cla3"]
+  s7 [label="A [31:24]", shape=box]
+  s8 [label="B [31:24]", shape=box]
+ }
+ subgraph sluster_2{
+  a2 [label="8 bit cla2"]
+  s5 [label="A [23:16]", shape=box]
+  s6 [label="B [23:16]", shape=box]
+ }
+ subgraph sluster_1{
+  a1 [label="8 bit cla1"]
+  s3 [label="A [15:8]", shape=box]
+  s4 [label="B [15:8]", shape=box]
+ }
+ subgraph sluster_0{
+  a0 [label="8 bit cla0"]
+  s1 [label="A [7:0]", shape=box]
+  s2 [label="B [7:0] ", shape=box]
+  cin [label="cin"]  
+ }
+ subgraph sluster_4{
+  a4 [label="4 bit cla"]
+  c4 [label="Cout"]
+  c4 -> a4 [label="C₃₂",dir=back, color=red, fontcolor=red];
+ }
+  {rank=sink;a4;c4;}
+  {rank=same;a3;a2;a1;a0}
+  a3 -> a4 [label="P,G", fontcolor=purple, color=purple];
+  a3 -> a4 [label="C₂₄", dir=back, color=red, fontcolor=red];
+  a2 -> a4 [label="P,G", fontcolor=purple, color=purple];
+  a2 -> a4 [label="C₁₆", dir=back, color=red, fontcolor=red];
+  a1 -> a4 [label="P,G", fontcolor=purple, color=purple];
+  a1 -> a4 [label="C₈", dir=back, color=red, fontcolor=red];
+  a0 -> a4 [label="P,G", fontcolor=purple, color=purple];
+  s3 -> a1 [label="A"];
+  s4 -> a1 [label="B"];
+  s5 -> a2 [label="A"];
+  s6 -> a2 [label="B"];
+  s7 -> a3 [label="A"];
+  s8 -> a3 [label="B"];
+  s1 -> a0 [label="A"];
+  s2 -> a0 [label="B"];
+  cin -> a0 [label="C₀"];
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/multicladder.png]]
+
+**** Reference
+[[http://ithelp.ithome.com.tw/articles/10160513][iT 邦幫忙：淺入淺出計組之旅]]
+
+[[https://chi_gitbook.gitbooks.io/personal-note/content/addition.html][chi＿gitbook]]
+
+*** ZCV flag
+**** check zero
+將 result 的所有位數拿出來做 nor 
+
+**** check carry out 
+由 cla adder 拿出 carry out 之後, 再確認是否是作加減法
+
+**** check overflow 
+考慮加法會 overflow 的情況, 當兩數同號的時候有可能會 overflow, 
+
+1. 考慮正：overflow 成負數, MSB = 1, 第 32 bit 有 carry_in 沒有 carry_out
+2. 考慮負：overflow 成正數, MSB = 0, 第 32 bit 有 carry_out 沒有 carry_in
+3. otherwise：第 32 bit 有 carry_in 就會有 carry_out, vise versa
+
+得到：當第 32 bit carry_in 與 carry_out 不同時就是 overflow
+
+而減法可以 mapping 回加法所以就推論完了
+
+**** Reference
+[[https://chi_gitbook.gitbooks.io/personal-note/content/alu.html][chi＿gitbook]]
+
+*** set command
+[[./img/set_command.png]]
+
+**** slt (set less than)
+同號時考慮減法出來的結果, MSB = 1 則 lt = 1, 異號時只要 A MSB = 1 則 lt = 1
+
+**** seq (set equal)
+將加法中的每個 xor 的結果拿出來再做 and, 由於 instruction 的設計, 出來的是 1 代表 A, B 每一位都相同, 所以相等
+
+**** other set command (sgt, sle, sge, sne)
+現在我們有 lt, eq 兩個指標了, 其他的條件都可以用這兩個組出來, 我們希望使用的邏輯單元越少越好, 於是我們讓所有的 set command 在 alu 裡共用一條線路,
+
+只在外面做判斷, 首先觀察 control input 三個 bit, 我們可以發現 MSB 代表只考慮 eq , 中間代表加入考慮 eq, LSB 代表 考慮 lt, 
+
+於是我們可以得到 set = =(~[2]) & ([0] ^ lt) | ([1] & eq)= 這條式子, 接進 LSB 的 alu 就完成了
