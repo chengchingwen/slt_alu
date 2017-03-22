@@ -181,7 +181,7 @@ digraph G {
   s1 -> a0 [label="A"];
   s2 -> a0 [label="B"];
   cin -> a0 [label="C₀"];
-
+  cin -> a4 [label="C₀"];
 }
 #+END_SRC
 
