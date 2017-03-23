@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>slt ALU</title>
-<!-- 2017-03-23 四 04:25 -->
+<!-- 2017-03-24 五 00:58 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="鄭景文" />
@@ -347,8 +347,11 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">slt ALU</h1>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 實作內容說明</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> slt ALU</h2>
 <div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 實作內容說明</h3>
+<div class="outline-text-3" id="text-1-1">
 
 <div class="figure">
 <p><img src="./img/basic_command.png" alt="basic_command.png" />
@@ -363,12 +366,10 @@ for the JavaScript code in this tag.
 同理, 利用這種做法我們只要實作加法則減法也做完了
 </p>
 </div>
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> adder</h3>
-<div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> carry look ahead</h4>
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> adder</h4>
 <div class="outline-text-4" id="text-1-1-1">
+</div><ol class="org-ol"><li><a id="sec-1-1-1-1" name="sec-1-1-1-1"></a>carry look ahead<br  /><div class="outline-text-5" id="text-1-1-1-1">
 <p>
 原本透過 ripple carry adder 來實做加法時, cout 必須等待前一位的加法進位 (cin) 完成才能夠做運算, 於是會造成延遲
 </p>
@@ -388,11 +389,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-1-2" class="outline-4">
-<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> 32 bit carry look ahead adder</h4>
-<div class="outline-text-4" id="text-1-1-2">
+<li><a id="sec-1-1-1-2" name="sec-1-1-1-2"></a>32 bit carry look ahead adder<br  /><div class="outline-text-5" id="text-1-1-1-2">
 <p>
 在這邊我們實作了一個 8 bit 的 carry look ahead circuit (cla) , 並將他串起來做成一個 32 bit adder, 
 但是這樣的話在彼此的 carry 傳遞過程中又會有 ripple 造成延遲
@@ -404,10 +403,8 @@ for the JavaScript code in this tag.
 </p>
 </div>
 </div>
-</div>
-<div id="outline-container-sec-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> multiple level carry look ahead adder</h4>
-<div class="outline-text-4" id="text-1-1-3">
+</li>
+<li><a id="sec-1-1-1-3" name="sec-1-1-1-3"></a>multiple level carry look ahead adder<br  /><div class="outline-text-5" id="text-1-1-1-3">
 <p>
 於是我們在這之上再建了一層 cla, 事先將每一個 8 bit cla 需要得 carry<sub>in</sub> 算出來, 減少延遲, 也就是 multiple level cla 
 </p>
@@ -418,11 +415,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-1-4" class="outline-4">
-<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> Reference</h4>
-<div class="outline-text-4" id="text-1-1-4">
+<li><a id="sec-1-1-1-4" name="sec-1-1-1-4"></a>Reference<br  /><div class="outline-text-5" id="text-1-1-1-4">
 <p>
 <a href="http://ithelp.ithome.com.tw/articles/10160513">iT 邦幫忙：淺入淺出計組之旅</a>
 </p>
@@ -431,33 +426,27 @@ for the JavaScript code in this tag.
 <a href="https://chi_gitbook.gitbooks.io/personal-note/content/addition.html">chi＿gitbook</a>
 </p>
 </div>
-</div>
+</li></ol>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> ZCV flag</h3>
-<div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> check zero</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> ZCV flag</h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div><ol class="org-ol"><li><a id="sec-1-1-2-1" name="sec-1-1-2-1"></a>check zero<br  /><div class="outline-text-5" id="text-1-1-2-1">
 <p>
 將 result 的所有位數拿出來做 nor 
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> check carry out</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<li><a id="sec-1-1-2-2" name="sec-1-1-2-2"></a>check carry out<br  /><div class="outline-text-5" id="text-1-1-2-2">
 <p>
 由 cla adder 拿出 carry out 之後, 再確認是否是作加減法
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> check overflow</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<li><a id="sec-1-1-2-3" name="sec-1-1-2-3"></a>check overflow<br  /><div class="outline-text-5" id="text-1-1-2-3">
 <p>
 考慮加法會 overflow 的情況, 當兩數同號的時候有可能會 overflow, 
 </p>
@@ -479,21 +468,19 @@ for the JavaScript code in this tag.
 而減法可以 mapping 回加法所以就推論完了
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-2-4" class="outline-4">
-<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Reference</h4>
-<div class="outline-text-4" id="text-1-2-4">
+<li><a id="sec-1-1-2-4" name="sec-1-1-2-4"></a>Reference<br  /><div class="outline-text-5" id="text-1-1-2-4">
 <p>
 <a href="https://chi_gitbook.gitbooks.io/personal-note/content/alu.html">chi＿gitbook</a>
 </p>
 </div>
-</div>
+</li></ol>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> set command</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> set command</h4>
+<div class="outline-text-4" id="text-1-1-3">
 
 <div class="figure">
 <p><img src="./img/set_command.png" alt="set_command.png" />
@@ -501,27 +488,21 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> slt (set less than)</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<ol class="org-ol"><li><a id="sec-1-1-3-1" name="sec-1-1-3-1"></a>slt (set less than)<br  /><div class="outline-text-5" id="text-1-1-3-1">
 <p>
 同號時考慮減法出來的結果, MSB = 1 則 lt = 1, 異號時只要 A MSB = 1 則 lt = 1
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> seq (set equal)</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<li><a id="sec-1-1-3-2" name="sec-1-1-3-2"></a>seq (set equal)<br  /><div class="outline-text-5" id="text-1-1-3-2">
 <p>
 將加法中的每個 xor 的結果拿出來再做 and, 由於 instruction 的設計, 出來的是 1 代表 A, B 每一位都相同, 所以相等
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-1-3-3" class="outline-4">
-<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> other set command (sgt, sle, sge, sne)</h4>
-<div class="outline-text-4" id="text-1-3-3">
+<li><a id="sec-1-1-3-3" name="sec-1-1-3-3"></a>other set command (sgt, sle, sge, sne)<br  /><div class="outline-text-5" id="text-1-1-3-3">
 <p>
 現在我們有 lt, eq 兩個指標了, 其他的條件都可以用這兩個組出來, 我們希望使用的邏輯單元越少越好, 於是我們讓所有的 set command 在 alu 裡共用一條線路,
 </p>
@@ -531,16 +512,17 @@ for the JavaScript code in this tag.
 </p>
 
 <p>
-於是我們可以得到 set = <code>(~[2]) &amp; ([0] ^ lt) | ([1] &amp; eq)</code> 這條式子, 接進 LSB 的 alu 就完成了
+於是我們可以得到 set = <code>(~[2]) &amp; ([0] ^ lt) | ([1] ^ eq)</code> 這條式子, 接進 LSB 的 alu 就完成了
 </p>
 </div>
+</li></ol>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 鄭景文</p>
-<p class="date">Created: 2017-03-23 四 04:25</p>
+<p class="date">Created: 2017-03-24 五 00:58</p>
 <p class="creator">Emacs 25.1.1 (Org mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
