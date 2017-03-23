@@ -79,7 +79,7 @@ module alu(
    assign ad = ALU_control[1] & ~ALU_control[0];
    assign eql = &eq;
 
-   assign set = (~bonus_control[2] & (bonus_control[0] ^ lt)) | bonus_control[1] & eql;
+   assign set = (~bonus_control[2] & (bonus_control[0] ^ lt)) | bonus_control[1] ^ eql;
    
  
    always @ ( /*AUTOSENSE*/*  ) begin
