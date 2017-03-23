@@ -9,7 +9,8 @@ module alu32 (/*AUTOARG*/
               result, //32 bit
               cout, //1 bit
 	      eq, //32 bit
-	      V //1 bit overflow
+	      V, //1 bit overflow
+              Sign//1 bit sign
 ) ;
    input [32-1:0] src1, src2;
    input 	  cin, less, A_invert, B_invert;
@@ -20,6 +21,7 @@ module alu32 (/*AUTOARG*/
    wire [4-1:0]    p, g;
    output [32-1:0] eq;
    output 	   V;
+   output          Sign;
    wire [8-1:0]    v;
    
    
@@ -84,6 +86,6 @@ module alu32 (/*AUTOARG*/
    
    assign cout = c[3];
    assign V = c[3] ^ v[6];
-   
+   assign Sign = eq[31] ^ v[6];
    
 endmodule // alu32

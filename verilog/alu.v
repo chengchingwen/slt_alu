@@ -54,7 +54,7 @@ module alu(
    wire            c;
    wire 	   slt;
    wire [32-1:0]   eq; 	   
-   wire 	   sign_check, ad;
+   wire 	   sign_check, ad, sign;
    wire 	   eql;
    wire 	   set;
    wire 	   v;
@@ -70,11 +70,12 @@ module alu(
             .result(res),
             .cout(c),
 	    .eq(eq),
-	    .V(v)
+	    .V(v),
+            .Sign(sign)
             );
    
    assign sign_check = eq[31] ; //(src1[31] ^ ~src2[31]);
-   assign lt = sign_check ? res[31] : src1[31] & ~src2[31];
+   assign lt = sign_check ? sign : src1[31];
    assign ad = ALU_control[1] & ~ALU_control[0];
    assign eql = &eq;
 
