@@ -83,4 +83,85 @@
     
     只在外面做判斷, 首先觀察 control input 三個 bit, 我們可以發現 MSB 代表只考慮 eq , 中間代表加入考慮 eq, LSB 代表 考慮 lt, 
     
-    於是我們可以得到 set = `(~[2]) & ([0] ^ lt) | ([1] ^ eq)` 這條式子, 接進 LSB 的 alu 就完成了
+    但是這樣的方式並不能很好得用 eq, lt 來表示, 於是我們再觀察,
+    
+    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+    
+    
+    <colgroup>
+    <col  class="left" />
+    
+    <col  class="left" />
+    
+    <col  class="right" />
+    
+    <col  class="right" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th scope="col" class="left">set</th>
+    <th scope="col" class="left">bool equation</th>
+    <th scope="col" class="right">input</th>
+    <th scope="col" class="right">old input</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr>
+    <td class="left">slt</td>
+    <td class="left">lt</td>
+    <td class="right">010</td>
+    <td class="right">000</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="left">sgt</td>
+    <td class="left">~(lt + eq)</td>
+    <td class="right">111</td>
+    <td class="right">001</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="left">sle</td>
+    <td class="left">lt + eq</td>
+    <td class="right">011</td>
+    <td class="right">010</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="left">sge</td>
+    <td class="left">~ lt</td>
+    <td class="right">110</td>
+    <td class="right">011</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="left">seq</td>
+    <td class="left">eq</td>
+    <td class="right">001</td>
+    <td class="right">110</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="left">sne</td>
+    <td class="left">~eq</td>
+    <td class="right">101</td>
+    <td class="right">100</td>
+    </tr>
+    </tbody>
+    </table>
+    
+    我們可以發現, 在這種排列下, 我們只要透過 set = `[2] ^ ( [1] & lt | [0] & eq)` 這樣的式子就能很好的表達,
+    
+    於是我們多做了一層電路將舊 input 轉成新的, 透過觀察得到
+    
+        [2] = [0]' | ~[1]' & [2]'
+        [1] = ~[2]'
+        [0] = [1]'^[0]' | [2]'
+    
+    最後根據式子, 將 set 接進 LSB 的 alu 就完成了

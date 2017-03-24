@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>slt ALU</title>
-<!-- 2017-03-24 五 00:58 -->
+<!-- 2017-03-24 五 22:34 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="鄭景文" />
@@ -512,7 +512,92 @@ for the JavaScript code in this tag.
 </p>
 
 <p>
-於是我們可以得到 set = <code>(~[2]) &amp; ([0] ^ lt) | ([1] ^ eq)</code> 這條式子, 接進 LSB 的 alu 就完成了
+但是這樣的方式並不能很好得用 eq, lt 來表示, 於是我們再觀察,
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">set</th>
+<th scope="col" class="left">bool equation</th>
+<th scope="col" class="right">input</th>
+<th scope="col" class="right">old input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">slt</td>
+<td class="left">lt</td>
+<td class="right">010</td>
+<td class="right">000</td>
+</tr>
+
+<tr>
+<td class="left">sgt</td>
+<td class="left">~(lt + eq)</td>
+<td class="right">111</td>
+<td class="right">001</td>
+</tr>
+
+<tr>
+<td class="left">sle</td>
+<td class="left">lt + eq</td>
+<td class="right">011</td>
+<td class="right">010</td>
+</tr>
+
+<tr>
+<td class="left">sge</td>
+<td class="left">~ lt</td>
+<td class="right">110</td>
+<td class="right">011</td>
+</tr>
+
+<tr>
+<td class="left">seq</td>
+<td class="left">eq</td>
+<td class="right">001</td>
+<td class="right">110</td>
+</tr>
+
+<tr>
+<td class="left">sne</td>
+<td class="left">~eq</td>
+<td class="right">101</td>
+<td class="right">100</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+我們可以發現, 在這種排列下, 我們只要透過 set = <code>[2] ^ ( [1] &amp; lt | [0] &amp; eq)</code> 這樣的式子就能很好的表達,
+</p>
+
+<p>
+於是我們多做了一層電路將舊 input 轉成新的, 透過觀察得到
+</p>
+
+<pre class="example">
+[2] = [0]' | ~[1]' &amp; [2]'
+[1] = ~[2]'
+[0] = [1]'^[0]' | [2]'
+</pre>
+
+<p>
+最後根據式子, 將 set 接進 LSB 的 alu 就完成了
 </p>
 </div>
 </li></ol>
@@ -522,7 +607,7 @@ for the JavaScript code in this tag.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 鄭景文</p>
-<p class="date">Created: 2017-03-24 五 00:58</p>
+<p class="date">Created: 2017-03-24 五 22:34</p>
 <p class="creator">Emacs 25.1.1 (Org mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
