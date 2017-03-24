@@ -6,11 +6,12 @@ SUB_ALU8=alu_top.v cla8.v alu8.v
 SUB_ALU32=alu_top.v cla8.v alu8.v cla4.v alu32.v
 BONUS=fuckyoubonuslayer.v
 DOT=alu.dot alu32.dot alu8.dot alu_top.dot cla4.dot cla8.dot fkl.dot
+DOTPATH=dot
 MYTEST=mytest
 MYTEST8=mytest8
 MYTEST32=mytest32
 GRAPH=graph
-VPATH = verilog:test:graph
+VPATH = verilog:test:dot
 
 alu.vvp: testbench.v ${TOPMODULE} ${SUB_ALU32} ${BONUS}
 	iverilog -o $@ $+
@@ -31,15 +32,15 @@ test: alu.vvp
 synth: synth.ys
 	yosys synth.ys
 pre_graph: ${DOT}
-	sed -i.bu '/digraph/r  graph/style.txt' $+
+	sed -i.bu '/digraph/r  dot/style.txt' $+
 graph: pre_graph
-	dot ${GRAPH}/alu.dot -Tpdf -o ${GRAPH}/alu.pdf
-	dot ${GRAPH}/alu32.dot -Tpdf -o ${GRAPH}/alu32.pdf
-	dot ${GRAPH}/alu8.dot -Tpdf -o ${GRAPH}/alu8.pdf
-	dot ${GRAPH}/alu_top.dot -Tpdf -o ${GRAPH}/alu_top.pdf
-	dot ${GRAPH}/cla4.dot -Tpdf -o ${GRAPH}/cla4.pdf
-	dot ${GRAPH}/cla8.dot -Tpdf -o ${GRAPH}/cla8.pdf
-	dot ${GRAPH}/fkl.dot -Tpdf -o ${GRAPH}/flk.pdf
+	dot ${DOTPATH}/alu.dot -Tpdf -o ${GRAPH}/alu.pdf
+	dot ${DOTPATH}/alu32.dot -Tpdf -o ${GRAPH}/alu32.pdf
+	dot ${DOTPATH}/alu8.dot -Tpdf -o ${GRAPH}/alu8.pdf
+	dot ${DOTPATH}/alu_top.dot -Tpdf -o ${GRAPH}/alu_top.pdf
+	dot ${DOTPATH}/cla4.dot -Tpdf -o ${GRAPH}/cla4.pdf
+	dot ${DOTPATH}/cla8.dot -Tpdf -o ${GRAPH}/cla8.pdf
+	dot ${DOTPATH}/fkl.dot -Tpdf -o ${GRAPH}/flk.pdf
 
 
 

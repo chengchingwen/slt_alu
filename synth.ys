@@ -37,11 +37,11 @@ opt alu8
 opt alu_top
 opt cla4
 opt cla8
-show -enum -stretch -prefix graph/alu -format dot alu
-show -enum -stretch -prefix graph/alu32 -format dot alu32
-show -enum -stretch -prefix graph/alu8 -format dot alu8
-show -enum -stretch -prefix graph/alu_top -format dot alu_top
-show -enum -stretch -prefix graph/cla4 -format dot cla4
-show -enum -stretch -prefix graph/cla8 -format dot cla8
-show -enum -stretch -prefix graph/fkl -format dot fuckyoubonuslayer
+show -enum -stretch -prefix dot/alu -format dot alu
+show -enum -stretch -prefix dot/alu32 -format dot alu32
+show -enum -stretch -prefix dot/alu8 -format dot alu8
+show -enum -stretch -prefix dot/alu_top -format dot alu_top
+show -enum -stretch -prefix dot/cla4 -format dot cla4
+show -enum -stretch -prefix dot/cla8 -format dot cla8
+show -enum -stretch -prefix dot/fkl -format dot fuckyoubonuslayer
 
