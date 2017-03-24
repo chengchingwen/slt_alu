@@ -15,7 +15,7 @@ module alu32 (/*AUTOARG*/
    input [32-1:0] src1, src2;
    input 	  cin, less, A_invert, B_invert;
    input [2-1:0]  operation;
-   output 	  cout, slt;
+   output 	  cout;
    output [32-1:0] result;
    wire [4-1:0]    c;
    wire [4-1:0]    p, g;

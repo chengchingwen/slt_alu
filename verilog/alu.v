@@ -52,13 +52,13 @@ module alu(
    
    wire   [32-1:0] res;
    wire            c;
-   wire 	   slt;
+   wire 	   lt;
    wire [32-1:0]   eq; 	   
    wire 	   sign_check, ad, sign;
    wire 	   eql;
    wire 	   set;
    wire 	   v;
-   
+   wire [3-1:0]    ctrl, bc;
    
    alu32 a1(.src1(src1),
             .src2(src2),
@@ -73,15 +73,20 @@ module alu(
 	    .V(v),
             .Sign(sign)
             );
-   
+
+   fuckyoubonuslayer f1(.ctrl(ctrl),
+                        .bc(bc)
+                        );
+   assign bc = bonus_control;
    assign sign_check = eq[31] ; //(src1[31] ^ ~src2[31]);
    assign lt = sign_check ? sign : src1[31];
    assign ad = ALU_control[1] & ~ALU_control[0];
    assign eql = &eq;
+   assign set = ctrl[2] ^ ( ctrl[1] & lt | ctrl[0] & eql );
 
-   assign set = (~bonus_control[2] & (bonus_control[0] ^ lt)) | bonus_control[1] ^ eql;
    
- 
+//assign set = (~bonus_control[2] & (bonus_control[0] ^ lt)) | bonus_control[1] ^ eql;
+   
    always @ ( /*AUTOSENSE*/*  ) begin
       if (rst_n) begin
          result <= res;
