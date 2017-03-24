@@ -1,0 +1,7 @@
+ordering="in";
+splines="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]

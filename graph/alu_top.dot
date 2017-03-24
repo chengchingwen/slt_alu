@@ -1,0 +1,192 @@
+digraph "alu_top" {
+ordering="in";
+splines="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="otho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+label="alu_top";
+rankdir="LR";
+remincross=true;
+n13 [ shape=diamond, label="ADD", color="black", fontcolor="black" ];
+n14 [ shape=diamond, label="AND", color="black", fontcolor="black" ];
+n15 [ shape=octagon, label="A_invert", color="black", fontcolor="black" ];
+n16 [ shape=octagon, label="B_invert", color="black", fontcolor="black" ];
+n17 [ shape=diamond, label="OR", color="black", fontcolor="black" ];
+n18 [ shape=octagon, label="cin", color="black", fontcolor="black" ];
+n19 [ shape=octagon, label="eq", color="black", fontcolor="black" ];
+n20 [ shape=octagon, label="g", color="black", fontcolor="black" ];
+n21 [ shape=diamond, label="in1", color="black", fontcolor="black" ];
+n22 [ shape=diamond, label="in2", color="black", fontcolor="black" ];
+n23 [ shape=octagon, label="less", color="black", fontcolor="black" ];
+n24 [ shape=octagon, label="operation", color="black", fontcolor="black" ];
+n25 [ shape=octagon, label="p", color="black", fontcolor="black" ];
+n26 [ shape=octagon, label="result", color="black", fontcolor="black" ];
+n27 [ shape=octagon, label="src1", color="black", fontcolor="black" ];
+n28 [ shape=octagon, label="src2", color="black", fontcolor="black" ];
+{ rank="source"; n15; n16; n18; n23; n24; n27; n28;}
+{ rank="sink"; n19; n20; n25; n26;}
+c32 [ shape=record, label="{{<p29> A|<p30> B}|_1_\n$_OR_|{<p31> Y}}" ];
+x0 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x0:e -> c32:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c33 [ shape=record, label="{{<p29> A|<p30> B}|_2_\n$_OR_|{<p31> Y}}" ];
+x1 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x1:e -> c33:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x2 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x2:e -> c33:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c34 [ shape=record, label="{{<p29> A|<p30> B}|_3_\n$_OR_|{<p31> Y}}" ];
+x3 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x3:e -> c34:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c35 [ shape=record, label="{{<p29> A|<p30> B}|_4_\n$_OR_|{<p31> Y}}" ];
+x4 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x4:e -> c35:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x5 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x5:e -> c35:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x6 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+c35:p31:e -> x6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c36 [ shape=record, label="{{<p29> A|<p30> B}|_5_\n$_OR_|{<p31> Y}}" ];
+x7 [ shape=record, style=rounded, label="<s0> 2:2 - 0:0 " ];
+x7:e -> c36:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x8 [ shape=record, style=rounded, label="<s0> 3:3 - 0:0 " ];
+x8:e -> c36:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x9 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c36:p31:e -> x9:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c37 [ shape=record, label="{{<p29> A|<p30> B}|_6_\n$_OR_|{<p31> Y}}" ];
+x10 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x10:e -> c37:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x11 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x11:e -> c37:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c38 [ shape=record, label="{{<p29> A|<p30> B}|_7_\n$_OR_|{<p31> Y}}" ];
+x12 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x12:e -> c38:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x13 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x13:e -> c38:p30:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c39 [ shape=record, label="{{<p29> A}|_8_\n$_NOT_|{<p31> Y}}" ];
+c40 [ shape=record, label="{{<p29> A}|_9_\n$_NOT_|{<p31> Y}}" ];
+c41 [ shape=record, label="{{<p29> A}|_10_\n$_NOT_|{<p31> Y}}" ];
+c42 [ shape=record, label="{{<p29> A}|_11_\n$_NOT_|{<p31> Y}}" ];
+c43 [ shape=record, label="{{<p29> A|<p30> B}|_12_\n$_XOR_|{<p31> Y}}" ];
+c44 [ shape=record, label="{{<p29> A|<p30> B}|_13_\n$_XOR_|{<p31> Y}}" ];
+c45 [ shape=record, label="{{<p29> A|<p30> B}|_14_\n$_XOR_|{<p31> Y}}" ];
+c46 [ shape=record, label="{{<p29> A|<p30> B}|_15_\n$_AND_|{<p31> Y}}" ];
+c47 [ shape=record, label="{{<p29> A|<p30> B}|_16_\n$_OR_|{<p31> Y}}" ];
+c48 [ shape=record, label="{{<p29> A|<p30> B}|_17_\n$_XOR_|{<p31> Y}}" ];
+v15 [ label="1'1" ];
+c49 [ shape=record, label="{{<p29> A|<p30> B}|_18_\n$_XOR_|{<p31> Y}}" ];
+x14 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x14:e -> c49:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x16 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c49:p31:e -> x16:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+v18 [ label="1'1" ];
+c50 [ shape=record, label="{{<p29> A|<p30> B}|_19_\n$_XOR_|{<p31> Y}}" ];
+x17 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x17:e -> c50:p29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c51 [ shape=record, label="{{<p29> A|<p30> B}|_20_\n$_AND_|{<p31> Y}}" ];
+x19 [ shape=record, style=rounded, label="<s0> 0:0 - 3:3 " ];
+c51:p31:e -> x19:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c52 [ shape=record, label="{{<p29> A|<p30> B}|_21_\n$_AND_|{<p31> Y}}" ];
+x20 [ shape=record, style=rounded, label="<s0> 0:0 - 2:2 " ];
+c52:p31:e -> x20:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c53 [ shape=record, label="{{<p29> A|<p30> B}|_22_\n$_AND_|{<p31> Y}}" ];
+x21 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c53:p31:e -> x21:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c54 [ shape=record, label="{{<p29> A|<p30> B}|_23_\n$_AND_|{<p31> Y}}" ];
+x22 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+c54:p31:e -> x22:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x23 [shape=box, style=rounded, label="BUF"];
+x24 [shape=box, style=rounded, label="BUF"];
+n1 [ shape=point ];
+x6:s0:e -> n1:w [color="black", label=""];
+x9:s0:e -> n1:w [color="black", label=""];
+n1:e -> x10:s0:w [color="black", label=""];
+n1:e -> x11:s0:w [color="black", label=""];
+c40:p31:e -> c53:p30:w [color="black", label=""];
+c41:p31:e -> c52:p30:w [color="black", label=""];
+c42:p31:e -> c51:p30:w [color="black", label=""];
+c48:p31:e -> n13:w [color="black", label=""];
+n13:e -> c53:p29:w [color="black", label=""];
+c46:p31:e -> n14:w [color="black", label=""];
+n14:e -> c51:p29:w [color="black", label=""];
+n14:e -> x23:w:w [color="black", label=""];
+n15:e -> c43:p29:w [color="black", label=""];
+n16:e -> c44:p29:w [color="black", label=""];
+c47:p31:e -> n17:w [color="black", label=""];
+n17:e -> c52:p29:w [color="black", label=""];
+n17:e -> x24:w:w [color="black", label=""];
+n18:e -> c48:p30:w [color="black", label=""];
+c45:p31:e -> n19:w [color="black", label=""];
+n19:e -> c48:p29:w [color="black", label=""];
+n2 [ shape=point ];
+x16:s0:e -> n2:w [color="black", label=""];
+n2:e -> x0:s0:w [color="black", label=""];
+n2:e -> x2:s0:w [color="black", label=""];
+x23:e:e -> n20:w [color="black", label=""];
+c43:p31:e -> n21:w [color="black", label=""];
+n21:e -> c45:p29:w [color="black", label=""];
+n21:e -> c46:p29:w [color="black", label=""];
+n21:e -> c47:p29:w [color="black", label=""];
+c44:p31:e -> n22:w [color="black", label=""];
+n22:e -> c45:p30:w [color="black", label=""];
+n22:e -> c46:p30:w [color="black", label=""];
+n22:e -> c47:p30:w [color="black", label=""];
+n23:e -> c54:p29:w [color="black", label=""];
+n24:e -> x12:s0:w [color="black", label=""];
+n24:e -> x13:s0:w [color="black", label=""];
+n24:e -> x14:s0:w [color="black", label=""];
+n24:e -> x17:s0:w [color="black", label=""];
+n24:e -> x1:s0:w [color="black", label=""];
+n24:e -> x3:s0:w [color="black", label=""];
+x24:e:e -> n25:w [color="black", label=""];
+c37:p31:e -> n26:w [color="black", label=""];
+n27:e -> c43:p30:w [color="black", label=""];
+n28:e -> c44:p30:w [color="black", label=""];
+c38:p31:e -> c42:p29:w [color="black", label=""];
+n4 [ shape=point ];
+c50:p31:e -> n4:w [color="black", label=""];
+n4:e -> c32:p29:w [color="black", label=""];
+n4:e -> c34:p29:w [color="black", label=""];
+c32:p31:e -> c39:p29:w [color="black", label=""];
+c33:p31:e -> c40:p29:w [color="black", label=""];
+c34:p31:e -> c41:p29:w [color="black", label=""];
+n8 [ shape=point ];
+x19:s0:e -> n8:w [color="black", label=""];
+x20:s0:e -> n8:w [color="black", label=""];
+x21:s0:e -> n8:w [color="black", label=""];
+x22:s0:e -> n8:w [color="black", label=""];
+n8:e -> x4:s0:w [color="black", label=""];
+n8:e -> x5:s0:w [color="black", label=""];
+n8:e -> x7:s0:w [color="black", label=""];
+n8:e -> x8:s0:w [color="black", label=""];
+c39:p31:e -> c54:p30:w [color="black", label=""];
+v15:e -> c49:p30:w [color="black", label=""];
+v18:e -> c50:p30:w [color="black", label=""];
+}

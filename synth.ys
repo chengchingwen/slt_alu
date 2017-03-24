@@ -1,0 +1,47 @@
+read_verilog verilog/alu.v verilog/alu32.v verilog/alu8.v verilog/alu_top.v verilog/cla* verilog/f*
+hierarchy -check;
+prep;
+scc -set_attr submod scc{}
+submod
+proc; opt;
+techmap; opt;
+fsm; opt; memory; opt;
+wreduce; opt; freduce; opt;
+techmap alu32
+techmap alu8
+techmap alu_top
+techmap cla4
+techmap cla8
+fsm alu32
+fsm alu8
+fsm alu_top
+fsm cla4
+fsm cla8
+memory alu32
+memory alu8
+memory alu_top
+memory cla4
+memory cla8
+freduce alu32
+freduce alu8
+freduce alu_top
+freduce cla4
+freduce cla8
+wreduce alu32
+wreduce alu8
+wreduce alu_top
+wreduce cla4
+wreduce cla8
+opt alu32
+opt alu8
+opt alu_top
+opt cla4
+opt cla8
+show -enum -stretch -prefix graph/alu -format dot alu
+show -enum -stretch -prefix graph/alu32 -format dot alu32
+show -enum -stretch -prefix graph/alu8 -format dot alu8
+show -enum -stretch -prefix graph/alu_top -format dot alu_top
+show -enum -stretch -prefix graph/cla4 -format dot cla4
+show -enum -stretch -prefix graph/cla8 -format dot cla8
+show -enum -stretch -prefix graph/fkl -format dot fuckyoubonuslayer
+

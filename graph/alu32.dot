@@ -1,0 +1,188 @@
+digraph "alu32" {
+ordering="in";
+splines="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="otho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+label="alu32";
+rankdir="LR";
+remincross=true;
+n1 [ shape=octagon, label="A_invert", color="black", fontcolor="black" ];
+n2 [ shape=octagon, label="B_invert", color="black", fontcolor="black" ];
+n3 [ shape=octagon, label="Sign", color="black", fontcolor="black" ];
+n4 [ shape=octagon, label="V", color="black", fontcolor="black" ];
+n5 [ shape=diamond, label="c", color="black", fontcolor="black" ];
+n6 [ shape=octagon, label="cin", color="black", fontcolor="black" ];
+n7 [ shape=octagon, label="cout", color="black", fontcolor="black" ];
+n8 [ shape=octagon, label="eq", color="black", fontcolor="black" ];
+n9 [ shape=diamond, label="g", color="black", fontcolor="black" ];
+n10 [ shape=octagon, label="less", color="black", fontcolor="black" ];
+n11 [ shape=octagon, label="operation", color="black", fontcolor="black" ];
+n12 [ shape=diamond, label="p", color="black", fontcolor="black" ];
+n13 [ shape=octagon, label="result", color="black", fontcolor="black" ];
+n14 [ shape=octagon, label="src1", color="black", fontcolor="black" ];
+n15 [ shape=octagon, label="src2", color="black", fontcolor="black" ];
+n16 [ shape=diamond, label="v", color="black", fontcolor="black" ];
+{ rank="source"; n1; n10; n11; n14; n15; n2; n6;}
+{ rank="sink"; n13; n3; n4; n7; n8;}
+c20 [ shape=record, label="{{<p17> A|<p18> B}|_1_\n$_XOR_|{<p19> Y}}" ];
+x0 [ shape=record, style=rounded, label="<s0> 3:3 - 0:0 " ];
+x0:e -> c20:p17:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x1 [ shape=record, style=rounded, label="<s0> 6:6 - 0:0 " ];
+x1:e -> c20:p18:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c21 [ shape=record, label="{{<p17> A|<p18> B}|_2_\n$_XOR_|{<p19> Y}}" ];
+x2 [ shape=record, style=rounded, label="<s0> 31:31 - 0:0 " ];
+x2:e -> c21:p17:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x3 [ shape=record, style=rounded, label="<s0> 6:6 - 0:0 " ];
+x3:e -> c21:p18:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c24 [ shape=record, label="{{<p22> G|<p23> P|<p6> cin}|cl\ncla4|{<p7> cout}}" ];
+c25 [ shape=record, label="{{<p1> A_invert|<p2> B_invert|<p6> cin|<p10> less|<p11> operation|<p14> src1|<p15> src2}|e1\nalu8|{<p22> G|<p23> P|<p8> eq|<p13> result}}" ];
+x4 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+c25:p22:e -> x4:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x5 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+c25:p23:e -> x5:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x6 [ shape=record, style=rounded, label="<s0> 7:0 - 7:0 " ];
+c25:p8:e -> x6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x7 [ shape=record, style=rounded, label="<s0> 7:0 - 7:0 " ];
+c25:p13:e -> x7:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x8 [ shape=record, style=rounded, label="<s0> 7:0 - 7:0 " ];
+x8:e -> c25:p14:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x9 [ shape=record, style=rounded, label="<s0> 7:0 - 7:0 " ];
+x9:e -> c25:p15:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+v14 [ label="1'0" ];
+c26 [ shape=record, label="{{<p1> A_invert|<p2> B_invert|<p6> cin|<p10> less|<p11> operation|<p14> src1|<p15> src2}|e2\nalu8|{<p22> G|<p23> P|<p8> eq|<p13> result}}" ];
+x10 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c26:p22:e -> x10:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x11 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c26:p23:e -> x11:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x12 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x12:e -> c26:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x13 [ shape=record, style=rounded, label="<s0> 7:0 - 15:8 " ];
+c26:p8:e -> x13:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x15 [ shape=record, style=rounded, label="<s0> 7:0 - 15:8 " ];
+c26:p13:e -> x15:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x16 [ shape=record, style=rounded, label="<s0> 15:8 - 7:0 " ];
+x16:e -> c26:p14:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x17 [ shape=record, style=rounded, label="<s0> 15:8 - 7:0 " ];
+x17:e -> c26:p15:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+v22 [ label="1'0" ];
+c27 [ shape=record, label="{{<p1> A_invert|<p2> B_invert|<p6> cin|<p10> less|<p11> operation|<p14> src1|<p15> src2}|e3\nalu8|{<p22> G|<p23> P|<p8> eq|<p13> result}}" ];
+x18 [ shape=record, style=rounded, label="<s0> 0:0 - 2:2 " ];
+c27:p22:e -> x18:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x19 [ shape=record, style=rounded, label="<s0> 0:0 - 2:2 " ];
+c27:p23:e -> x19:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x20 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x20:e -> c27:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x21 [ shape=record, style=rounded, label="<s0> 7:0 - 23:16 " ];
+c27:p8:e -> x21:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x23 [ shape=record, style=rounded, label="<s0> 7:0 - 23:16 " ];
+c27:p13:e -> x23:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x24 [ shape=record, style=rounded, label="<s0> 23:16 - 7:0 " ];
+x24:e -> c27:p14:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x25 [ shape=record, style=rounded, label="<s0> 23:16 - 7:0 " ];
+x25:e -> c27:p15:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+v30 [ label="1'0" ];
+c28 [ shape=record, label="{{<p1> A_invert|<p2> B_invert|<p6> cin|<p10> less|<p11> operation|<p14> src1|<p15> src2}|e4\nalu8|{<p22> G|<p23> P|<p7> cout|<p8> eq|<p13> result}}" ];
+x26 [ shape=record, style=rounded, label="<s0> 0:0 - 3:3 " ];
+c28:p22:e -> x26:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x27 [ shape=record, style=rounded, label="<s0> 0:0 - 3:3 " ];
+c28:p23:e -> x27:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x28 [ shape=record, style=rounded, label="<s0> 2:2 - 0:0 " ];
+x28:e -> c28:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x29 [ shape=record, style=rounded, label="<s0> 7:0 - 31:24 " ];
+c28:p8:e -> x29:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x31 [ shape=record, style=rounded, label="<s0> 7:0 - 31:24 " ];
+c28:p13:e -> x31:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x32 [ shape=record, style=rounded, label="<s0> 31:24 - 7:0 " ];
+x32:e -> c28:p14:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x33 [ shape=record, style=rounded, label="<s0> 31:24 - 7:0 " ];
+x33:e -> c28:p15:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+x34 [ shape=record, style=rounded, label="<s0> 3:3 - 0:0 " ];
+n1:e -> c25:p1:w [color="black", label=""];
+n1:e -> c26:p1:w [color="black", label=""];
+n1:e -> c27:p1:w [color="black", label=""];
+n1:e -> c28:p1:w [color="black", label=""];
+n10:e -> c25:p10:w [color="black", label=""];
+n11:e -> c25:p11:w [color="black", style="setlinewidth(3)", label=""];
+n11:e -> c26:p11:w [color="black", style="setlinewidth(3)", label=""];
+n11:e -> c27:p11:w [color="black", style="setlinewidth(3)", label=""];
+n11:e -> c28:p11:w [color="black", style="setlinewidth(3)", label=""];
+x11:s0:e -> n12:w [color="black", label=""];
+x19:s0:e -> n12:w [color="black", label=""];
+x27:s0:e -> n12:w [color="black", label=""];
+x5:s0:e -> n12:w [color="black", label=""];
+n12:e -> c24:p23:w [color="black", label=""];
+x15:s0:e -> n13:w [color="black", style="setlinewidth(3)", label=""];
+x23:s0:e -> n13:w [color="black", style="setlinewidth(3)", label=""];
+x31:s0:e -> n13:w [color="black", style="setlinewidth(3)", label=""];
+x7:s0:e -> n13:w [color="black", style="setlinewidth(3)", label=""];
+n14:e -> x16:s0:w [color="black", style="setlinewidth(3)", label=""];
+n14:e -> x24:s0:w [color="black", style="setlinewidth(3)", label=""];
+n14:e -> x32:s0:w [color="black", style="setlinewidth(3)", label=""];
+n14:e -> x8:s0:w [color="black", style="setlinewidth(3)", label=""];
+n15:e -> x17:s0:w [color="black", style="setlinewidth(3)", label=""];
+n15:e -> x25:s0:w [color="black", style="setlinewidth(3)", label=""];
+n15:e -> x33:s0:w [color="black", style="setlinewidth(3)", label=""];
+n15:e -> x9:s0:w [color="black", style="setlinewidth(3)", label=""];
+c28:p7:e -> n16:w [color="black", style="setlinewidth(3)", label=""];
+n16:e -> x1:s0:w [color="black", style="setlinewidth(3)", label=""];
+n16:e -> x3:s0:w [color="black", style="setlinewidth(3)", label=""];
+n2:e -> c25:p2:w [color="black", label=""];
+n2:e -> c26:p2:w [color="black", label=""];
+n2:e -> c27:p2:w [color="black", label=""];
+n2:e -> c28:p2:w [color="black", label=""];
+c21:p19:e -> n3:w [color="black", label=""];
+c20:p19:e -> n4:w [color="black", label=""];
+c24:p7:e -> n5:w [color="black", label=""];
+n5:e -> x0:s0:w [color="black", label=""];
+n5:e -> x12:s0:w [color="black", label=""];
+n5:e -> x20:s0:w [color="black", label=""];
+n5:e -> x28:s0:w [color="black", label=""];
+n5:e -> x34:s0:w [color="black", label=""];
+n6:e -> c24:p6:w [color="black", label=""];
+n6:e -> c25:p6:w [color="black", label=""];
+x34:e -> n7:w [color="black", label=""];
+x13:s0:e -> n8:w [color="black", style="setlinewidth(3)", label=""];
+x21:s0:e -> n8:w [color="black", style="setlinewidth(3)", label=""];
+x29:s0:e -> n8:w [color="black", style="setlinewidth(3)", label=""];
+x6:s0:e -> n8:w [color="black", style="setlinewidth(3)", label=""];
+n8:e -> x2:s0:w [color="black", style="setlinewidth(3)", label=""];
+x10:s0:e -> n9:w [color="black", label=""];
+x18:s0:e -> n9:w [color="black", label=""];
+x26:s0:e -> n9:w [color="black", label=""];
+x4:s0:e -> n9:w [color="black", label=""];
+n9:e -> c24:p22:w [color="black", label=""];
+v14:e -> c26:p10:w [color="black", label=""];
+v22:e -> c27:p10:w [color="black", label=""];
+v30:e -> c28:p10:w [color="black", label=""];
+}

@@ -1,0 +1,83 @@
+digraph "fuckyoubonuslayer" {
+ordering="in";
+splines="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="otho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+ordering="in";
+spline="ortho";
+node [ fontname = Verdana, fontsize = 12 ]
+node [ style = filled ] 
+node [ fillcolor = "#EEEEEE" ] 
+node [ color = "#EEEEEE" ]
+edge [ color = "# 31CEF0" ]
+label="fuckyoubonuslayer";
+rankdir="LR";
+remincross=true;
+n4 [ shape=octagon, label="bc", color="black", fontcolor="black" ];
+n5 [ shape=octagon, label="ctrl", color="black", fontcolor="black" ];
+{ rank="source"; n4;}
+{ rank="sink"; n5;}
+c8 [ shape=record, label="{{<p6> A}|_1_\n$_NOT_|{<p7> Y}}" ];
+x0 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x0:e -> c8:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c9 [ shape=record, label="{{<p6> A}|_2_\n$_NOT_|{<p7> Y}}" ];
+x1 [ shape=record, style=rounded, label="<s0> 2:2 - 0:0 " ];
+x1:e -> c9:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x2 [ shape=record, style=rounded, label="<s0> 0:0 - 1:1 " ];
+c9:p7:e -> x2:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c11 [ shape=record, label="{{<p6> A|<p10> B}|_3_\n$_AND_|{<p7> Y}}" ];
+x3 [ shape=record, style=rounded, label="<s0> 2:2 - 0:0 " ];
+x3:e -> c11:p10:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c12 [ shape=record, label="{{<p6> A|<p10> B}|_4_\n$_OR_|{<p7> Y}}" ];
+x4 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x4:e -> c12:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x5 [ shape=record, style=rounded, label="<s0> 0:0 - 2:2 " ];
+c12:p7:e -> x5:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c13 [ shape=record, label="{{<p6> A|<p10> B}|_5_\n$_XOR_|{<p7> Y}}" ];
+x6 [ shape=record, style=rounded, label="<s0> 1:1 - 0:0 " ];
+x6:e -> c13:p6:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x7 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+x7:e -> c13:p10:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c14 [ shape=record, label="{{<p6> A|<p10> B}|_6_\n$_OR_|{<p7> Y}}" ];
+x8 [ shape=record, style=rounded, label="<s0> 2:2 - 0:0 " ];
+x8:e -> c14:p10:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+x9 [ shape=record, style=rounded, label="<s0> 0:0 - 0:0 " ];
+c14:p7:e -> x9:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", label=""];
+c11:p7:e -> c12:p10:w [color="black", label=""];
+c8:p7:e -> c11:p6:w [color="black", label=""];
+c13:p7:e -> c14:p6:w [color="black", label=""];
+n4:e -> x0:s0:w [color="black", label=""];
+n4:e -> x1:s0:w [color="black", label=""];
+n4:e -> x3:s0:w [color="black", label=""];
+n4:e -> x4:s0:w [color="black", label=""];
+n4:e -> x6:s0:w [color="black", label=""];
+n4:e -> x7:s0:w [color="black", label=""];
+n4:e -> x8:s0:w [color="black", label=""];
+x2:s0:e -> n5:w [color="black", label=""];
+x5:s0:e -> n5:w [color="black", label=""];
+x9:s0:e -> n5:w [color="black", label=""];
+}
